@@ -5,7 +5,21 @@
   "projects": {
     "reactive-froms-app": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "type": "component",
+          "skipTests": true,
+          "inlineStyle": true
+        },
+        "@schematics/angular:service": {
+          "type": "service",
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true,
+          "typeSeparator": "."
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -81,5 +95,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "cf90eee3-ec9d-43e0-9612-034b6592ea53"
   }
 }
