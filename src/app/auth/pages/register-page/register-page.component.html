@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col">
 
-        <form autocomplete="off">
+        <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
             <!-- Nombre -->
             <div class="row mb-3">
@@ -12,11 +12,14 @@
                 <div class="col-sm-9">
                     <input type="text"
                            class="form-control"
-                           placeholder="Nombre del usuario">
+                           placeholder="Nombre del usuario"
+                           formControlName="name">
+                    @if (formUtils.isValidField(myForm, 'name')) {
+                        <span class="form-text text-danger">
+                            {{formUtils.getFieldError(myForm, 'name')}}
+                        </span>
 
-                    <span class="form-text text-danger">
-                        Debe de ser en formato de nombre y apellido
-                    </span>
+                    }
                 </div>
             </div>
 
@@ -26,10 +29,14 @@
                 <div class="col-sm-9">
                     <input type="email"
                            class="form-control"
-                           placeholder="Email del usuario">
-                    <span class="form-text text-danger">
-                        mensaje de error del email
-                    </span>
+                           placeholder="Email del usuario"
+                           formControlName="email">
+                    @if (formUtils.isValidField(myForm, 'email')) {
+                        <span class="form-text text-danger">
+                            {{formUtils.getFieldError(myForm, 'email')}}
+                         </span>
+
+                    }
                 </div>
             </div>
 
@@ -39,10 +46,14 @@
                 <div class="col-sm-9">
                     <input type="text"
                            class="form-control"
-                           placeholder="Nombre código del usuario">
-                    <span class="form-text text-danger">
-                         El username no puede ser Strider
-                    </span>
+                           placeholder="Nombre código del usuario"
+                           formControlName="username">
+                    @if (formUtils.isValidField(myForm, 'username')) {
+                        <span class="form-text text-danger">
+                             {{formUtils.getFieldError(myForm, 'username')}}
+                        </span>
+
+                    }
                 </div>
             </div>
 
@@ -52,11 +63,14 @@
                 <div class="col-sm-9">
                     <input type="password"
                            class="form-control"
-                           placeholder="Password de su cuenta">
+                           placeholder="Password de su cuenta"
+                           formControlName="password1">
+                    @if (formUtils.isValidField(myForm, 'password1')) {
+                        <span class="form-text text-danger">
+                            {{formUtils.getFieldError(myForm, 'password1')}}
+                        </span>
 
-                    <span class="form-text text-danger">
-                         La contraseña debe de ser mayor de 6 caracteres.
-                    </span>
+                    }
                 </div>
             </div>
 
@@ -66,17 +80,26 @@
                 <div class="col-sm-9">
                     <input type="password"
                            class="form-control"
-                           placeholder="Confirmar la contraseña">
+                           placeholder="Confirmar la contraseña"
+                           formControlName="password2">
+                    @if (formUtils.isValidField(myForm, 'password2')) {
+                        <span class="form-text text-danger">
+                             {{formUtils.getFieldError(myForm, 'password2')}}
+                        </span>
 
-                    <span class="form-text text-danger">
-                         Las contraseñas deben de ser iguales
-                    </span>
+                    }
                 </div>
             </div>
 
 
             <div class="row">
                 <div class="col">
+                    @if (myForm.errors && myForm.touched) {
+                        <span class="text-danger">
+                            Las contrasenias no son iguales
+                        </span>
+
+                    }
                     <button class="btn btn-primary float-end"
                             type="submit">
                         Crear
@@ -91,23 +114,28 @@
 
 
 <h2>Form Valid: </h2>
+<pre>{{ myForm.valid | json }}</pre>
 <h2>Form Status: </h2>
+<pre>{{ myForm.status | json }}</pre>
 <h2>Form Pending: </h2>
+<pre>{{ myForm.pending | json }}</pre>
+<h2>Form value: </h2>
+<pre>{{ myForm.value | json }}</pre>
 <h2>Form errors</h2>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.errors| json }}</pre>
 
 <h5>Nombre</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.controls['name'].errors | json }}</pre>
 
 <h5>Email</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.controls['email'].errors | json }}</pre>
 
 <h5>Username</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.controls['username'].errors | json }}</pre>
 
 
 <h5>Password</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.controls['password1'].errors | json }}</pre>
 
 <h5>Confirmar</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.controls['password2'].errors | json }}</pre>
